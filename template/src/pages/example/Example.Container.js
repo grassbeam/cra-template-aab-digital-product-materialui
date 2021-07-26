@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-import withExampleContainer from 'components/high-order/withDefaultContainer';
+import withDefaultContainer from 'components/high-order/withDefaultContainer';
 import MainLoader from 'components/loaders/main/MainLoader.Component';
 import ModalAlertComponent from 'components/modal/alert/ModalAlert.Component';
 import ModalConfirmationComponent from 'components/modal/confirmation/ModalConfirmation.Component';
@@ -129,4 +129,4 @@ class UserFeedBackContainer extends React.Component {
 }
 
 
-export default withExampleContainer("Component Example", "sm")(withStyles(styles, { isWithTheme: true})(UserFeedBackContainer));
+export default withDefaultContainer("Component Example", "Test")(withStyles(styles, { isWithTheme: true})(UserFeedBackContainer));

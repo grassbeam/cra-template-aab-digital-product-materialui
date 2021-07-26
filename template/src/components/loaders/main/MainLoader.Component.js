@@ -18,7 +18,7 @@ function MainLoader(props) {
     const classes = useStyles();
 
     return(
-        <Backdrop className={[className, classes.backdrop]} open={isLoading} onClick={onClose}>
+        <Backdrop className={`${className} ${classes.backdrop}`} open={isLoading} onClick={onClose}>
           <CircularProgress  color="inherit" />
         </Backdrop>
     );
@@ -28,12 +28,15 @@ function MainLoader(props) {
 MainLoader.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     onClose: PropTypes.func,
-    className: PropTypes.object,
+    className: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+    ])
 }
 
 MainLoader.defaultProps = {
     onClose: ()=>{},
-    className: { },
+    className: "",
 }
 
 export default MainLoader;

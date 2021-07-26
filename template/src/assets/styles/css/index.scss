@@ -1,0 +1,59 @@
+@font-face {font-family: "VAG Rounded Std Bold";
+    src: url("../font/VAG-Rounded-Std-Bold/VAG-Rounded-Std-Bold.eot"); /* IE9*/
+    src: url("../font/VAG-Rounded-Std-Bold/VAG-Rounded-Std-Bold.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../font/VAG-Rounded-Std-Bold/VAG-Rounded-Std-Bold.woff2") format("woff2"), /* chrome、firefox */
+    url("../font/VAG-Rounded-Std-Bold/VAG-Rounded-Std-Bold.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  }
+  
+  @font-face {font-family: "VAG Rounded Std Light";
+    src: url("../font/VAG-Rounded-Std-Light/VAG-Rounded-Std-Light.eot"); /* IE9*/
+    src: url("../font/VAG-Rounded-Std-Light/VAG-Rounded-Std-Light.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../font/VAG-Rounded-Std-Light/VAG-Rounded-Std-Light.woff2") format("woff2"), /* chrome、firefox */
+    url("../font/VAG-Rounded-Std-Light/VAG-Rounded-Std-Light.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  }
+  
+  %FontBold {
+    font-family: 'VAG Rounded Std Bold', Arial, Helvetica, sans-serif !important;
+    // font-weight: normal !important;
+  }
+  
+  %FontThin {
+    font-family: 'VAG Rounded Std Light',Arial,Helvetica,sans-serif !important;
+  }
+  
+  // body, li a, input, select, textarea, a, span, p {
+  //   @extend %FontThin;
+  //   letter-spacing: 0.01em;
+  // }
+  
+  // h1,h2,h3,h4,h5,h6,b,.font-bold, .navbar .nav-item {
+  //   @extend %FontBold;
+  // }
+  
+  body, a {
+    @extend %FontThin;
+  }
+  
+  .font-bold {
+    @extend %FontBold;
+  }
+  
+  body {
+    background-color: #FFFFFF!important;
+  }
+  
+  #root {
+    min-height: 100vh!important;
+    background-color: #FFFFFF;
+  }
+  
+  .sentry-error-embed {
+    top: 56px !important;
+    & header {
+        margin-top: 10px;
+    }
+    & p.powered-by {
+        display: none !important;
+    }
+  }
+  

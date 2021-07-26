@@ -41,7 +41,7 @@ export const ERROR_TYPE = {
  * 
  * @param {String} str 
  */
-function debugStr(str) {
+export function debugStr(str) {
     if(Config.IS_DEBUG) {
       console.log("%c" + str, 'background: #222; color: #bada55');
     }
@@ -136,7 +136,7 @@ export function isErrorNetworkOnAxios(error) {
     return false;
 }
 
-function generateAxiosCustomObjErrorAPI(error) {
+export function generateAxiosCustomObjErrorAPI(error) {
     var result = {ResponseObjType:"Axios"};
     if (typeof error == "string") {
       // Just Message

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Route, useRouteMatch } from "react-router-dom";
+import MainLoader from 'components/loaders/main/MainLoader.Component';
+import RouterBoundaries from 'components/boundaries/router/RouterBoundaries.Component';
 
   
 const HomeExample = React.lazy(() => import('pages/home/Home.Example.Container'));
@@ -9,10 +11,10 @@ const ExampleComponentPage = React.lazy(() => import('pages/example/Example.Cont
 function ExampleRouter() {
     let { path } = useRouteMatch();
     return(
-        <Switch>
+        <RouterBoundaries SuspenseLoder={ <MainLoader isLoading={true} /> }>
             <Route exact path={path} component={HomeExample} />
             <Route path={`${path}/components`} component={ExampleComponentPage} />
-        </Switch>
+        </RouterBoundaries>
     );
 }
 
