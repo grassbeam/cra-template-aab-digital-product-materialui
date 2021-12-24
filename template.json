@@ -1,8 +1,9 @@
 {
   "package": {
     "dependencies": {
-        "@material-ui/core": "^4.11.3",
-        "@material-ui/icons": "^4.11.2",
+        "@mui/icons-material": "^5.2.0",
+        "@mui/material": "^5.2.2",
+        "@mui/styles": "^5.2.2",
         "@reduxjs/toolkit": "^1.5.1",
         "@sentry/cli": "^1.67.2",
         "@sentry/react": "^6.3.1",
