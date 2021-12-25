@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from "react-router-dom";
+import { Routes , Route } from "react-router-dom";
 
 const Error404Page = React.lazy(() => import('pages/error/404/Error404.Container'));
 
@@ -8,10 +8,10 @@ const Error404Page = React.lazy(() => import('pages/error/404/Error404.Container
 export default function RouterBoundaries(props) {
     return(
         <React.Suspense fallback={ props.SuspenseLoader }>
-            <Switch>
+            <Routes>
                 { props.children??"" }
                 <Route path="*" component={Error404Page} />
-            </Switch>
+            </Routes>
         </React.Suspense>
     )
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import {
   BrowserRouter,
-  Switch,
+  Routes,
   Route,
 } from "react-router-dom";
 import ErrorBoundariesComponent from 'components/boundaries/error/ErrorBoundaries.Component';
@@ -23,7 +23,7 @@ class App extends React.Component {
               <MainLoader isLoading={true} />
           }>
             <ErrorBoundariesComponent>
-              <Switch>
+              <Routes>
                   <Route exact path="/" >
                     <HomeContainer/>
                   </Route>
@@ -36,7 +36,7 @@ class App extends React.Component {
                   <Route path="*">
                     <Error404Page />
                   </Route>
-              </Switch>
+              </Routes>
             </ErrorBoundariesComponent>
           </React.Suspense>
         </BrowserRouter>

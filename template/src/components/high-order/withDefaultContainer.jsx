@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
 import DefaultTheme from 'assets/styles/theme/Default.Theme';
 import 'assets/styles/css/index.scss';
-import { withRouter } from "react-router-dom";
+import { withRouter } from "react-router";
 import { getCookie } from 'utils/helpers/General';
 import Analytics from 'utils/helpers/Analytics';
 import * as Log from 'utils/helpers/Logger';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, useRouteMatch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import MainLoader from 'components/loaders/main/MainLoader.Component';
 import RouterBoundaries from 'components/boundaries/router/RouterBoundaries.Component';
 
@@ -9,12 +9,11 @@ const ErrorNetWork = React.lazy(() => import('pages/error/network/ErrorNetwork.C
 
 
 export default function ErrorsRouter() {
-    let { path } = useRouteMatch();
     return(
         <RouterBoundaries SuspenseLoder={ <MainLoader isLoading={true} /> }>
-            <Route exact path={`${path}/404`} component={Error404} />
-            <Route exact path={`${path}/500`} component={Error500} />
-            <Route exact path={`${path}/network`} component={ErrorNetWork} />
+            <Route exact path={`/404`} component={Error404} />
+            <Route exact path={`/500`} component={Error500} />
+            <Route exact path={`/network`} component={ErrorNetWork} />
         </RouterBoundaries>
     );
 }

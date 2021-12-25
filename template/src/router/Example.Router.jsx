@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, useRouteMatch } from "react-router-dom";
+import { Route, } from "react-router-dom";
 import MainLoader from 'components/loaders/main/MainLoader.Component';
 import RouterBoundaries from 'components/boundaries/router/RouterBoundaries.Component';
 
@@ -9,11 +9,10 @@ const ExampleComponentPage = React.lazy(() => import('pages/example/Example.Cont
 
 
 function ExampleRouter() {
-    let { path } = useRouteMatch();
     return(
         <RouterBoundaries SuspenseLoder={ <MainLoader isLoading={true} /> }>
-            <Route exact path={path} component={HomeExample} />
-            <Route path={`${path}/components`} component={ExampleComponentPage} />
+            <Route exact path={"/"} component={HomeExample} />
+            <Route path={`/components`} component={ExampleComponentPage} />
         </RouterBoundaries>
     );
 }
