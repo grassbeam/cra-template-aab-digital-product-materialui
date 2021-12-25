@@ -90,17 +90,15 @@ export function formatMoney(amount, decimalCount = 2, decimal = ".", thousands =
     ).toString();
     let j = i.length > 3 ? i.length % 3 : 0;
 
-    return (
-      negativeSign +
-      (j ? i.substr(0, j) + thousands : "") +
-      i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
-      (decimalCount
-        ? decimal +
-        Math.abs(amount - i)
-          .toFixed(decimalCount)
-          .slice(2)
-        : "")
-    );
+    return negativeSign +
+    (j ? i.substr(0, j) + thousands : "") +
+    i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
+    (decimalCount
+      ? decimal +
+      Math.abs(amount - i)
+        .toFixed(decimalCount)
+        .slice(2)
+      : "");
   } catch (e) {
     console.log(e);
   }
@@ -154,7 +152,7 @@ export function formatNumber(num) {
   if (isNullOrEmpty(num)) {
     return "0"
   }
-  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 export function daysBetween(date1, date2) {

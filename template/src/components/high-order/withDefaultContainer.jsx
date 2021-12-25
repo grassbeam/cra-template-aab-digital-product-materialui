@@ -1,11 +1,9 @@
-import React, { lazy } from 'react';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Box from '@material-ui/core/Box';
+import React, { lazy, useState, useEffect } from 'react';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import { useLocation } from 'react-router-dom';
 import DefaultTheme from 'assets/styles/theme/Default.Theme';
-import 'assets/styles/css/index.scss';
-import { withRouter } from "react-router";
-import { getCookie } from 'utils/helpers/General';
 import Analytics from 'utils/helpers/Analytics';
 import * as Log from 'utils/helpers/Logger';
 import ErrorBoundariesComponent from 'components/boundaries/error/ErrorBoundaries.Component';
@@ -22,26 +20,29 @@ const DefaultContainerErrorHandler = lazy(()=>import('components/container/error
  */
 export default function withDefaultContainer(pageName, textTitle="", withHeader=true, optionContainer = {}, optionGA, withEGMon=true, UserEGMON ) {
     const { backgroundColor='#F4F4F4', containerMinHeight, optionIcon, } = optionContainer || {};
+
     return (Component) => {
 
-        class ExampleContainerHOC extends React.Component {
+        const ExampleContainerHOC = (props) => {
 
-            constructor(props) {
-              super(props);
-              this.ComponentRef = optionIcon && React.createRef();
-              this.state = {
-                UserID: UserEGMON??getCookie("GHT_SESSION")??"Unknown",
-                ErrorStatus: 0,
-                ErrorCodes: "",
-              }
-            }
+            const [state, setState] = useState({
+              UserID: "Anonymous",
+              ErrorStatus: 0,
+              ErrorCodes: "",
+            });
+
+            const locationHistory = useLocation();
             
-            componentDidMount() {
+            const ComponentRef = optionIcon && React.createRef();
+
+            useEffect(()=>{
+              // TODO Fix The Broken Pieces
               const {
-                location: { pathname: page }
-              } = this.props;
-              Analytics.PageView(page, pageName, { userId: this.state.UserID, ...optionGA });
-            }
+                location
+              } = locationHistory;
+              Log.debugGroup("Check locationHistory", locationHistory);
+              Analytics.PageView(location && location.pathname, pageName, { userId: state.UserID, ...optionGA });
+            }, [locationHistory, state])
 
             /**
              * 
@@ -49,44 +50,44 @@ export default function withDefaultContainer(pageName, textTitle="", withHeader=
              * @param {Any} ErrorObject 
              * @param {Int} ErrorObjectType => 1 = Generic Exception, 2 = Invalid Response API,  
              */
-            handlingErrorStatus(ErrorCodes, ErrorObject, ErrorObjectType = 1, isReportToSentry=true) {
-              this.setState({
+             const handlingErrorStatus = (ErrorCodes, ErrorObject, ErrorObjectType = 1, isReportToSentry=true) => {
+              setState({
                 ErrorStatus: ErrorObjectType,
                 ErrorCodes,
                 ErrorObject
               },() => {
                 if (isReportToSentry) {
-                  Log.reportSentry(ErrorObject, this.state.UserID);
+                  Log.reportSentry(ErrorObject, state.UserID);
                 }
               });
             }
 
-            onOptionClickItem() {
-              this.ComponentRef.current.OnClickOptionItem();
+            const onOptionClickItem = () => {
+              ComponentRef.current.OnClickOptionItem();
             }
-    
-            render() {
-                return(
-                  <>
-                  <CssBaseline />
+
+          return (
+              <>
+                <CssBaseline />
+                  <StyledEngineProvider injectFirst>
                     <ThemeProvider theme={DefaultTheme}>
-                      <EGMonBoundariesComponent UserID={this.state.UserID} withEGMON={withEGMon} PageName={pageName} >
+                      <EGMonBoundariesComponent UserID={state.UserID} withEGMON={withEGMon} PageName={pageName} >
                         <Box style={{ backgroundColor:(backgroundColor??'#F4F4F4'), minHeight: ( containerMinHeight ?? (withHeader?'95vh':'100vh') ), }}>
                           <ErrorBoundariesComponent>
                             {
-                              this.state.ErrorStatus > 0?
+                              state.ErrorStatus > 0?
                                 <DefaultContainerErrorHandler 
-                                  ErrorStatus={this.state.ErrorStatus} 
-                                  ErrorCodes={this.state.ErrorCodes}
-                                  ErrorObject={this.state.ErrorObject} />
+                                  ErrorStatus={state.ErrorStatus} 
+                                  ErrorCodes={state.ErrorCodes}
+                                  ErrorObject={state.ErrorObject} />
                               :
                               (    
                                 <>
-                                  { withHeader && <HeaderComponent Title={textTitle || ""} ActionIcon={optionIcon} ActionHandler={this.onOptionClickItem.bind(this)} /> }
+                                  { withHeader && <HeaderComponent TitleText={textTitle || ""} ActionIcon={optionIcon} ActionHandler={onOptionClickItem} /> }
                                   <Component
-                                    ref={this.ComponentRef}
-                                    _ShowErrorHandling={ this.handlingErrorStatus.bind(this) }
-                                    {...this.props}
+                                    ref={ComponentRef}
+                                    _ShowErrorHandling={ handlingErrorStatus }
+                                    {...props}
                                   />
                                 </>
                               )
@@ -95,11 +96,11 @@ export default function withDefaultContainer(pageName, textTitle="", withHeader=
                         </Box>
                       </EGMonBoundariesComponent>
                     </ThemeProvider>
-                  </>
-                );
-            }
+                  </StyledEngineProvider>
+                </>
+          )
         }
     
-        return withRouter(ExampleContainerHOC);
+        return ExampleContainerHOC;
     };
 }

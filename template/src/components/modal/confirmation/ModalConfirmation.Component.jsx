@@ -1,42 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { withStyles, useTheme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import MuiDialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
-const styles = (theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-});
-
-const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, withCloseBtn, ...others } = props;
+const DialogTitle = (props) => {
+  const { children, onClose, withCloseBtn, ...others } = props;
   return (
-    <MuiDialogTitle disableTypography className={classes.root} {...others}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
+   <MuiDialogTitle sx={(theme) => ({ margin:0, padding: theme.spacing(2), })} {...others}>
+     {children}
+     {onClose ? (
+       <IconButton
+        aria-label="close"
+        sx={(theme) => ({ 
+          position: 'absolute',
+          right: theme.spacing(1),
+          top: theme.spacing(1),
+          color: theme.palette.grey[500], 
+        })}
+        onClick={onClose}
+        size="large">
+         <CloseIcon />
+       </IconButton>
+     ) : null}
+   </MuiDialogTitle>
   );
-});
+};
 
 
 function ModalConfirmation(props) {
@@ -141,7 +136,7 @@ ModalConfirmation.propTypes = {
     /**
      * Max width size, value must be 'xs', 'sm',' md', 'lg', 'xl'
      */
-     MaxWidthBreakDown: PropTypes.oneOf(['xs', 'sm',' md', 'lg', 'xl']),
+     MaxWidthBreakDown: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
 };
 
 ModalConfirmation.defaultProps = {

@@ -1,7 +1,5 @@
 import React from 'react';
-import { Route } from "react-router-dom";
-import MainLoader from 'components/loaders/main/MainLoader.Component';
-import RouterBoundaries from 'components/boundaries/router/RouterBoundaries.Component';
+import { Routes, Route } from "react-router-dom";
 
 const Error404 = React.lazy(() => import('pages/error/404/Error404.Container'));
 const Error500 = React.lazy(() => import('pages/error/500/Error500.Container'));
@@ -10,10 +8,10 @@ const ErrorNetWork = React.lazy(() => import('pages/error/network/ErrorNetwork.C
 
 export default function ErrorsRouter() {
     return(
-        <RouterBoundaries SuspenseLoder={ <MainLoader isLoading={true} /> }>
-            <Route exact path={`/404`} component={Error404} />
-            <Route exact path={`/500`} component={Error500} />
-            <Route exact path={`/network`} component={ErrorNetWork} />
-        </RouterBoundaries>
+            <Routes>
+                <Route exact path={`/404`} element={ <Error404/> } />
+                <Route exact path={`/500`} component={ <Error500/> } />
+                <Route exact path={`/network`} component={ <ErrorNetWork/> } />
+            </Routes>
     );
 }

@@ -1,26 +1,12 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import withDefaultContainer from 'components/high-order/withDefaultContainer';
 import MainLoader from 'components/loaders/main/MainLoader.Component';
 import ModalAlertComponent from 'components/modal/alert/ModalAlert.Component';
 import ModalConfirmationComponent from 'components/modal/confirmation/ModalConfirmation.Component';
-
-const styles = (theme) => ({
-    root: {
-        textAlign: 'center',
-        paddingTop: theme.spacing(3),
-    },
-    ComponentContainer: {
-        marginBottom: theme.spacing(5),
-    },
-    MainLoader: {
-        color: 'red', // color for spinner / progress
-    }
-})
 
 class UserFeedBackContainer extends React.Component {
 
@@ -48,12 +34,18 @@ class UserFeedBackContainer extends React.Component {
 
     render() {
         return(   
-            <Box className={this.props.classes.root}>
+            <Box sx={
+                    (theme)=> ({
+                        textAlign: 'center',
+                        paddingTop: theme.spacing(3),
+                    })
+                }
+            >
                 
                 <MainLoader
                     isLoading={this.state.isMainLoading}
                     onClose={(()=>this.handleToogleMainLoading(false))}
-                    className={this.props.classes.MainLoader}
+                    sx={{ color: 'red', }}
                 />
                 <ModalAlertComponent
                     TitleText="Alert Title Here"
@@ -73,7 +65,7 @@ class UserFeedBackContainer extends React.Component {
                 <ModalConfirmationComponent
                     TitleText="Alert Title Here"
                     TitleID="modal-alert-id-title"
-                    ContentText={[...new Array(50)]
+                    ContentText={[...new Array(10)]
                         .map(
                         () => `Cras mattis consectetur purus sit amet fermentum.
         Cras justo odio, dapibus ac facilisis in, egestas eget quam.
@@ -95,7 +87,7 @@ class UserFeedBackContainer extends React.Component {
                     withFullHeight
                 />
 
-                <Box className={this.props.classes.ComponentContainer}>
+                <Box sx={(theme) => ({ marginBottom: theme.spacing(5), })}>
                     <Typography variant="h6" component="h6">
                         MainLoading Component
                     </Typography>
@@ -105,7 +97,7 @@ class UserFeedBackContainer extends React.Component {
                 </Box>
 
 
-                <Box className={this.props.classes.ComponentContainer}>
+                <Box sx={(theme) => ({ marginBottom: theme.spacing(5), })}>
                     <Typography variant="h6" component="h6">
                         ModalAlert Component
                     </Typography>
@@ -114,7 +106,7 @@ class UserFeedBackContainer extends React.Component {
                     </Button>
                 </Box>
 
-                <Box className={this.props.classes.ComponentContainer}>
+                <Box sx={(theme) => ({ marginBottom: theme.spacing(5), })}>
                     <Typography variant="h6" component="h6">
                         ModalConfirmationComponent Component
                     </Typography>
@@ -129,4 +121,4 @@ class UserFeedBackContainer extends React.Component {
 }
 
 
-export default withDefaultContainer("Component Example", "Test")(withStyles(styles, { isWithTheme: true})(UserFeedBackContainer));
+export default withDefaultContainer("Component Example", "Test Title")(UserFeedBackContainer);
