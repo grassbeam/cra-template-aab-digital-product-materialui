@@ -40,8 +40,8 @@ function ModalConfirmation(props) {
   const { TitleText, TitleID, ContentText, ContentID, 
         OnClose, withBackdrop, isShowing,
         withDividerContent, withCloseBtn, withFullHeight,
-        withLeftButton, LeftBtnText, OnClickLeftBtn, 
-        RightBtnText, OnClickRightBtn, MaxWidthBreakDown }
+        withLeftButton, LeftBtnText, LeftBtnColor, OnClickLeftBtn, 
+        RightBtnText, RightBtnColor, OnClickRightBtn, MaxWidthBreakDown }
     = props;
 
   const theme = useTheme();
@@ -64,11 +64,11 @@ function ModalConfirmation(props) {
         {
             withLeftButton &&
             
-            <Button onClick={OnClickLeftBtn} color="primary">
+            <Button onClick={OnClickLeftBtn} color={LeftBtnColor} >
                 {LeftBtnText}
             </Button>
         }
-        <Button onClick={OnClickRightBtn} color="primary" autoFocus={!withFullHeight}>
+        <Button onClick={OnClickRightBtn} color={RightBtnColor} autoFocus={!withFullHeight}>
             {RightBtnText}
         </Button>
         </DialogActions>
@@ -110,13 +110,21 @@ ModalConfirmation.propTypes = {
      */
     LeftBtnText: PropTypes.string, 
     /**
+     * value of Left Button color ["primary", "secondary", etc]
+     */
+    LeftBtnColor: PropTypes.string,
+    /**
      * Handler function click Left Button
      */
     OnClickLeftBtn: PropTypes.func, 
     /**
      * value of text Right Button
      */
-    RightBtnText: PropTypes.string.isRequired, 
+    RightBtnText: PropTypes.string.isRequired,  
+    /**
+     * value of Right Button color ["primary", "secondary", etc]
+     */
+    RightBtnColor: PropTypes.string,
     /**
      * Handler function click Right Button
      */
@@ -145,8 +153,10 @@ ModalConfirmation.defaultProps = {
     ContentID: "confirmation-dialog-description",
     withBackdrop: false,
     OnClose: (()=>{}), 
-    withLeftButton: false, 
+    withLeftButton: false,
+    LeftBtnColor: "secondary",
     RightBtnText: "Yes", 
+    RightBtnColor: "secondary",
     OnClickRightBtn: ()=>{},
     withDividerContent: false, 
     withCloseBtn: false,

@@ -4,7 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { useLocation } from 'react-router-dom';
 import DefaultTheme from 'assets/styles/theme/Default.Theme';
-import Analytics from 'utils/helpers/Analytics';
+import { GoogleAnalytics } from 'utils/helpers/Analytics';
 import * as Log from 'utils/helpers/Logger';
 import ErrorBoundariesComponent from 'components/boundaries/error/ErrorBoundaries.Component';
 import EGMonBoundariesComponent from 'components/boundaries/egmon/EGMonBoundaries.Component';
@@ -41,7 +41,7 @@ export default function withDefaultContainer(pageName, textTitle="", withHeader=
                 location
               } = locationHistory;
               Log.debugGroup("Check locationHistory", locationHistory);
-              Analytics.PageView(location && location.pathname, pageName, { userId: state.UserID, ...optionGA });
+              GoogleAnalytics.PageView(location && location.pathname, pageName, { userId: state.UserID, ...optionGA });
             }, [locationHistory, state])
 
             /**

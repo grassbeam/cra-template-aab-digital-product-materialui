@@ -15,8 +15,8 @@ function ModalAlertComponent(props) {
 
   const { TitleText, TitleID, ContentText, ContentID, 
             OnClose, withBackdrop, isShowing,
-            withLeftButton, LeftBtnText, OnClickLeftBtn, 
-            RightBtnText, OnClickRightBtn, MaxWidthBreakDown }
+            withLeftButton, LeftBtnText, LeftBtnColor, OnClickLeftBtn, 
+            RightBtnText, RightBtnColor, OnClickRightBtn, MaxWidthBreakDown }
         = props;
   
   const theme = useTheme();
@@ -41,11 +41,11 @@ function ModalAlertComponent(props) {
         {
             withLeftButton &&
             
-            <Button onClick={OnClickLeftBtn} color="primary">
+            <Button onClick={OnClickLeftBtn} color={LeftBtnColor}>
                 {LeftBtnText}
             </Button>
         }
-        <Button onClick={OnClickRightBtn} color="primary" autoFocus>
+        <Button onClick={OnClickRightBtn} color={RightBtnColor} autoFocus>
             {RightBtnText}
         </Button>
       </DialogActions>
@@ -87,6 +87,10 @@ ModalAlertComponent.propTypes = {
      */
     LeftBtnText: PropTypes.string, 
     /**
+     * value of Left Button color ["primary", "secondary", etc]
+     */
+    LeftBtnColor: PropTypes.string,
+    /**
      * Handler function click Left Button
      */
     OnClickLeftBtn: PropTypes.func, 
@@ -94,6 +98,10 @@ ModalAlertComponent.propTypes = {
      * value of text Right Button
      */
     RightBtnText: PropTypes.string.isRequired, 
+    /**
+     * value of Right Button color ["primary", "secondary", etc]
+     */
+    RightBtnColor: PropTypes.string,
     /**
      * Handler function click Right Button
      */
@@ -111,7 +119,9 @@ ModalAlertComponent.defaultProps = {
     withBackdrop: false,
     OnClose: (()=>{}), 
     withLeftButton: false, 
+    LeftBtnColor: "secondary",
     RightBtnText: "OK", 
+    RightBtnColor: "secondary",
     OnClickRightBtn: ()=>{},
     MaxWidthBreakDown: "md",
 };
