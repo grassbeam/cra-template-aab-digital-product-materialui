@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import * as General from 'utils/helpers/General';
 
@@ -15,8 +15,8 @@ function ModalAlertComponent(props) {
 
   const { TitleText, TitleID, ContentText, ContentID, 
             OnClose, withBackdrop, isShowing,
-            withLeftButton, LeftBtnText, OnClickLeftBtn, 
-            RightBtnText, OnClickRightBtn, MaxWidthBreakDown }
+            withLeftButton, LeftBtnText, LeftBtnColor, OnClickLeftBtn, 
+            RightBtnText, RightBtnColor, OnClickRightBtn, MaxWidthBreakDown }
         = props;
   
   const theme = useTheme();
@@ -41,11 +41,11 @@ function ModalAlertComponent(props) {
         {
             withLeftButton &&
             
-            <Button onClick={OnClickLeftBtn} color="primary">
+            <Button onClick={OnClickLeftBtn} color={LeftBtnColor}>
                 {LeftBtnText}
             </Button>
         }
-        <Button onClick={OnClickRightBtn} color="primary" autoFocus>
+        <Button onClick={OnClickRightBtn} color={RightBtnColor} autoFocus>
             {RightBtnText}
         </Button>
       </DialogActions>
@@ -87,6 +87,10 @@ ModalAlertComponent.propTypes = {
      */
     LeftBtnText: PropTypes.string, 
     /**
+     * value of Left Button color ["primary", "secondary", etc]
+     */
+    LeftBtnColor: PropTypes.string,
+    /**
      * Handler function click Left Button
      */
     OnClickLeftBtn: PropTypes.func, 
@@ -95,13 +99,17 @@ ModalAlertComponent.propTypes = {
      */
     RightBtnText: PropTypes.string.isRequired, 
     /**
+     * value of Right Button color ["primary", "secondary", etc]
+     */
+    RightBtnColor: PropTypes.string,
+    /**
      * Handler function click Right Button
      */
     OnClickRightBtn: PropTypes.func.isRequired,
     /**
      * Max width size, value must be 'xs', 'sm',' md', 'lg', 'xl'
      */
-     MaxWidthBreakDown: PropTypes.oneOf(['xs', 'sm',' md', 'lg', 'xl']),
+     MaxWidthBreakDown: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
 };
 
 ModalAlertComponent.defaultProps = {
@@ -111,7 +119,9 @@ ModalAlertComponent.defaultProps = {
     withBackdrop: false,
     OnClose: (()=>{}), 
     withLeftButton: false, 
+    LeftBtnColor: "secondary",
     RightBtnText: "OK", 
+    RightBtnColor: "secondary",
     OnClickRightBtn: ()=>{},
     MaxWidthBreakDown: "md",
 };

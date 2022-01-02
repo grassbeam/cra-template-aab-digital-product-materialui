@@ -1,8 +1,16 @@
 import {configureStore} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import {combineReducers} from "redux"; 
-import { persistStore, persistReducer } from 'redux-persist'
-import thunk from 'redux-thunk';
+import { 
+  persistStore, 
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER, 
+} from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import * as Config from 'utils/values/Config';
 
@@ -33,7 +41,12 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 const store = configureStore({
     reducer: persistedReducer,
     devTools: process.env.NODE_ENV !== 'production',
-    middleware: [thunk]
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
 });
 
 const persistor = persistStore(store);
