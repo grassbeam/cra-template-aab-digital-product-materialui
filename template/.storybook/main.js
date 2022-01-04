@@ -1,4 +1,7 @@
 module.exports = {
+  core: {
+    builder: 'webpack5',
+  },
   "stories": [
     "../src/**/*.stories.mdx",
     "../src/**/*.StoryBook.@(js|jsx|ts|tsx)"
