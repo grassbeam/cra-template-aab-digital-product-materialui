@@ -1,4 +1,8 @@
 module.exports = {
+  features: { modernInlineRender: true },
+  core: {
+    builder: 'webpack5',
+  },
   "stories": [
     "../src/**/*.stories.mdx",
     "../src/**/*.StoryBook.@(js|jsx|ts|tsx)"
