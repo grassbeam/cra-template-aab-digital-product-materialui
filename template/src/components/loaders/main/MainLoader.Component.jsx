@@ -9,7 +9,7 @@ function MainLoader(props) {
     const { isLoading, onClose, sx, } = props;
 
     return(
-        <Backdrop sx={(theme)=> ({ zIndex: theme.zIndex.drawer + 1, color: theme.palette.info.main, ...sx, })} open={isLoading} onClick={onClose}>
+        <Backdrop sx={(theme)=> ({ zIndex: 999, color: theme.palette && theme.palette.info && theme.palette.info.main || 'blue', ...sx, })} open={isLoading} onClick={onClose}>
           <CircularProgress  color="inherit" />
         </Backdrop>
     );

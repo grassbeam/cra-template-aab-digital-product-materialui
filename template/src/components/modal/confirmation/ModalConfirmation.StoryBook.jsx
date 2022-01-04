@@ -21,7 +21,7 @@ Confirmation.args  = {
         .join('\n'), 
     ContentID: "confirm-content", 
     withBackdrop: true, 
-    isShowing: true,
+    isShowing: false,
     withDividerContent: true, 
     withCloseBtn: true, 
     withFullHeight: false,

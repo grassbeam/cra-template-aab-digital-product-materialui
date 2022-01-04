@@ -38,10 +38,10 @@ export default function withDefaultContainer(pageName, textTitle="", withHeader=
             useEffect(()=>{
               // TODO Fix The Broken Pieces
               const {
-                location
+                pathname
               } = locationHistory;
               Log.debugGroup("Check locationHistory", locationHistory);
-              GoogleAnalytics.PageView(location && location.pathname, pageName, { userId: state.UserID, ...optionGA });
+              GoogleAnalytics.PageView(pathname, pageName, { userId: state.UserID, ...optionGA });
             }, [locationHistory, state])
 
             /**

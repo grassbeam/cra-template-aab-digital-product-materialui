@@ -1,4 +1,5 @@
 module.exports = {
+  features: { modernInlineRender: true },
   core: {
     builder: 'webpack5',
   },
